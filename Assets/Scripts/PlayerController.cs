@@ -9,9 +9,11 @@ public class PlayerController : MonoBehaviour
     // The speed for the player's movement
     public float speed = 0;
 
-    // Hold a reference for rigid body
+    // Hold a reference for count text
     public TextMeshProUGUI countText;
 
+    // Hold a reference for win text object
+    public GameObject winTextObject;
     // Hold a reference for rigid body
     private Rigidbody rb;
 
@@ -30,6 +32,7 @@ public class PlayerController : MonoBehaviour
         count = 0;
         
         SetCountText();
+        winTextObject.SetActive(false);
     }
 
     // This function captures the movement for roll-a-ball in "up and down" and "left and right" directions
@@ -42,7 +45,7 @@ public class PlayerController : MonoBehaviour
         movementX = movementVector.x;
         movementY = movementVector.y;
     }
-
+    
     // This FixedUpdate function is called once per fixed frame-rate frame. 
     void FixedUpdate()
     {
@@ -56,6 +59,11 @@ public class PlayerController : MonoBehaviour
     void SetCountText()
     {
         countText.text = "Count: " + count.ToString();
+
+        if (count >= 12)
+        {
+            winTextObject.SetActive(true);
+        }
     }
 
     // This function will be called when a player GameObject triggers a trigger collider
